@@ -43,10 +43,10 @@ cartogram <- function(data, weight, variable, geometry, base = NULL,...) {
   data_projected <- cartogram::cartogram_cont(data_projected, weight = weight)
 
 
-  carto <- cartogram::cartogram_cont(data_projected, variable)
+  carto_map <- cartogram::cartogram_cont(data_projected, variable)
 
   # Convert cartogram to a sf object
-  carto_sf <- sf::st_as_sf(carto)
+  carto_sf <- sf::st_as_sf(carto_map)
 
   if(is.null(base)==TRUE){
     map <- tmap::tm_shape(carto_sf) +
