@@ -18,25 +18,22 @@
 
 cartogram <- function(data, weight, variable, geometry, base = NULL,...) {
 
-  # Check if the variable is numeric
+  # Check variable is numeric
   if (!is.numeric(data[[variable]])) {
     stop("Please insert a numeric input variable.")
 
   }
 
-  # Check if the variable is numeric
+  # Check variable is numeric
   if (!is.numeric(data[[weight]])) {
     stop("Please insert a numeric input variable.")
 
   }
 
-  # Check if the data contains geometry
+  # Check data contains geometry
   if (!inherits(data, "sf")) {
     stop("Please input data with a spatial object with geometry column.")
   }
-
-  # Transform the geometry column to a projected coordinate system
-  data_proj <- sf::st_transform(data, "+proj=utm +zone=18 +datum=NAD83")
 
 
   # Option 2
@@ -48,7 +45,7 @@ cartogram <- function(data, weight, variable, geometry, base = NULL,...) {
 
   carto <- cartogram::cartogram_cont(data_projected, variable)
 
-  # Convert cartogram to sf object
+  # Convert cartogram to a sf object
   carto_sf <- sf::st_as_sf(carto)
 
   if(is.null(base)==TRUE){
