@@ -12,11 +12,11 @@
 #' @param zoom_min Minimum zoom
 #' @param set_zoom General zoom level
 #' @param zoom_max Maximum zoom
-#' @param map_tile Map base, options: providers$Stamen.Toner, providers$Stamen.Watercolor
+#' @param map_tile Map base, options: leaflet::providers$Stamen.Toner, leaflet::providers$Stamen.Watercolor
 #' @param point_color Color of points on map
-#' @param user_radius Radius of points on map
-#' @param user_inopacity Opacity of point fill, default = 0.2
-#' @param user_outopacity Opacity of point outline, default = 0.4
+#' @param point_radius Radius of points on map
+#' @param point_inopacity Opacity of point fill, default = 0.2
+#' @param point_outopacity Opacity of point outline, default = 0.4
 #' @param user_pal Palette for points, must match number of factors in variables
 #' @param user_var Variable to change hue of points to, corresponds to palette
 #'
@@ -24,13 +24,13 @@
 #' @export
 #'
 #' @examples
-#' point_map(data = crash_data,
+#' pointmap(data = crash_data,
 #' longitude_var = crash_data$lon,
 #' latitude_var = crash_data$lat
 #' set_longitude = -71.110558,
 #' set_latitude = 42.3736)
 #'
-#' point_map(data = crash_data,
+#' pointmap(data = crash_data,
 #' longitude_var = crash_data$lon,
 #' latitude_var = crash_data$lat,
 #' set_longitude = -71.110558,
@@ -45,40 +45,64 @@ pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
                       set_latitude, popups = NULL, icon_filepath = NULL,
                       icon_width = 15, icon_height = 15, zoom_min = 12,
                       set_zoom = 13, zoom_max = 19,
-                      map_tile = providers$Stamen.Terrain, point_color = "red",
-                      user_radius = 10, user_inopacity = 0.2,
-                      user_outopacity = 0.4, user_pal = NULL, user_var = NULL){
-  # Class checks
-  stopifnot(is.numeric(longitude_var))
-  stopifnot(is.numeric(latitude_var))
-  stopifnot(is.numeric(set_longitude))
-  stopifnot(is.numeric(set_latitude))
-  stopifnot(is.numeric(zoom_min))
-  stopifnot(is.numeric(set_zoom))
-  stopifnot(is.numeric(zoom_max))
-  stopifnot(is.character(map_tile))
-  stopifnot(is.character(point_color))
-  stopifnot(is.numeric(user_radius))
-  stopifnot(is.numeric(user_inopacity))
-  stopifnot(is.numeric(user_outopacity))
+                      map_tile = leaflet::providers$Stamen.Terrain, point_color = "red",
+                      point_radius = 10, point_inopacity = 0.2,
+                      point_outopacity = 0.4, user_pal = NULL, user_var = NULL){
+  # Character class checks
+  if (!is.character(map_tile)){
+    stop("Error: map_tile must be a character")
+  }
+  if (!is.character(point_color)){
+    stop("Error: point_color must be a character")
+  }
+  if (!is.null(popups) & !is.character(popups)){ # Special NOT NULL check for popups
+    stop("Error: popups must be a character")
+  }
+
+  # Numeric class checks
+  if (!is.numeric(longitude_var)){
+    stop("Error: longitude_var must be numeric")
+  }
+  if (!is.numeric(latitude_var)){
+    stop("Error: latitude_var must be numeric")
+  }
+  if (!is.numeric(set_longitude)){
+    stop("Error: set_longitude must be numeric")
+  }
+  if (!is.numeric(set_latitude)){
+    stop("Error: set_latitude must be numeric")
+  }
+  if (!is.numeric(zoom_min)){
+    stop("Error: zoom_min must be numeric")
+  }
+  if (!is.numeric(set_zoom)){
+    stop("Error: set_zoom must be numeric")
+  }
+  if (!is.numeric(zoom_max)){
+    stop("Error: zoom_max must be numeric")
+  }
+  if (!is.numeric(point_radius)){
+    stop("Error: point_radius must be numeric")
+  }
+  if (!is.numeric(point_inopacity)){
+    stop("Error: point_inopacity must be numeric")
+  }
+  if (!is.numeric(point_outopacity)){
+    stop("Error: point_outopacity must be numeric")
+  }
 
   # Creating base map
   base_map <- leaflet::leaflet(options = leafletOptions(minZoom = zoom_min, maxZoom = zoom_max)) |>
     leaflet::setView(lng = set_longitude, lat = set_latitude, zoom = set_zoom) |>
     leaflet::addTiles()
 
-  # Check popups
-  if (!is.null(popups)){
-    stopifnot(is.character(popups))
-  }
-
-  if (!is.null(icon_filepath)){
-    # Checking class of icon filepath
-    stopifnot(is.character(icon_filepath))
+  # Checking class of icon filepath
+  if (!is.null(icon_filepath) & !is.character(icon_filepath)){
+    stop("Error: icon_filepath must a character.")
 
     # Checking class of icon width & height
-    if (!is.null(icon_width) & !is.null(icon_height)){
-      stopifnot(is.numeric(icon_width) & is.numeric(icon_height))
+    if (!is.null(icon_width) & !is.numeric(icon_width) | !is.null(icon_height & !is.numeric(icon_height))){
+      stop("Error: icon_width and icon_height must be numeric.")
     }
 
     map_icon <- leaflet::makeIcon(iconUrl = icon_filepath, iconWidth = icon_width, iconHeight = icon_height)
@@ -90,8 +114,11 @@ pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
   }
   else{
     if(!is.null(user_pal) & !is.null(user_var)){
-      # Checking class of user palette
-      stopifnot(is.character(user_pal))
+
+      # Check user palette class
+      if (!is.character(use_pal)){
+        stop("Error: user_pal must be a character.")
+      }
 
       # Ensuring number of palette colors matches factor levels
       if (!(length(levels(factor(user_var))) == length(user_pal))){
@@ -103,13 +130,13 @@ pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
       map_pal <- colorFactor(user_pal, domain = user_var)
 
       map <- base_map |>
-        leaflet::addCircleMarkers(lng = ~longitude_var, lat = ~latitude_var, data = data_set, popup = popups, color = ~map_pal(user_var), radius = user_radius, fillOpacity = user_inopacity, opacity = user_outopacity) |>
+        leaflet::addCircleMarkers(lng = ~longitude_var, lat = ~latitude_var, data = data_set, popup = popups, color = ~map_pal(user_var), radius = point_radius, fillOpacity = point_inopacity, opacity = point_outopacity) |>
         leaflet::addProviderTiles(map_tile)
       return(map)
 
     } else{
       map <- base_map |>
-        leaflet::addCircleMarkers(lng = ~longitude_var, lat = ~latitude_var, data = data_set, popup = popups, color = point_color, radius = user_radius, fillOpacity = user_inopacity, opacity = user_outopacity) |>
+        leaflet::addCircleMarkers(lng = ~longitude_var, lat = ~latitude_var, data = data_set, popup = popups, color = point_color, radius = point_radius, fillOpacity = point_inopacity, opacity = point_outopacity) |>
         leaflet::addProviderTiles(map_tile)
       return(map)
     }
