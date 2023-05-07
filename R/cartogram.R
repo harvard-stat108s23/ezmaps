@@ -11,10 +11,8 @@
 #' @export
 #'
 #' @examples
-#' cartogram(states, "Population", "Vegetables", geometry)
+#' cartogram(states, "Population", "Vegetables", geometry, NULL)
 #' cartogram(states, "Population", "Vegetables", geometry, "var")
-#' cartogram(nc, "BIR79", "AREA", "CNTY_ID", 1)
-#' cartogram(nc, "BIR79", "AREA", "CNTY_ID", leaflet::providers$Stamen.Watercolor)
 
 cartogram <- function(data, weight, variable, geometry, base = NULL,...) {
 

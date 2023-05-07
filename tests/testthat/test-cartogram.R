@@ -1,3 +1,5 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("valid inputs lead to map output", {
+  map <- chloropleth(nc, "BIR79", "CNTY_ID")
+  expect_true(inherits(map, "tmap"))
 })
+
