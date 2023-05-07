@@ -1,6 +1,5 @@
 ## code to prepare `DATASET` dataset goes here
 
-## NOT DONE: Will create clean csvs, put in data folder, & update DATASET.R
 us_states <- tigris::states(cb = TRUE, resolution = "20m", progress_bar = FALSE)
 us_states_shifted <- tigris::shift_geometry(us_states,
                                              preserve_area = TRUE,
