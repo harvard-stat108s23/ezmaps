@@ -6,13 +6,13 @@
 #' @param palette A palette that corresponds to the variable; default is "viridis."
 #' @param ...
 #'
-#' @return An interactive chloropleth map
+#' @return An interactive choropleth map
 #' @export
 #'
 #' @examples
-#' choropleth(nc, "BIR79", "CNTY_ID")
+#' choropleth(states, "Population", geometry, "viridis")
 
-chloropleth <- function(data, variable, geometry, palette = "viridis",... ){
+choropleth <- function(data, variable, geometry, palette = "viridis",... ){
   # Check if the variable is numeric
   if (!is.numeric(data[[variable]])) {
     stop("Please insert a numeric input variable.")
