@@ -1,5 +1,13 @@
 ## code to prepare `DATASET` dataset goes here
 
+## NOT DONE: Will create clean csvs, put in data folder, & update DATASET.R
+us_states <- tigris::states(cb = TRUE, resolution = "20m", progress_bar = FALSE)
+us_states_shifted2 <- tigris::shift_geometry(us_states,
+                                             preserve_area = TRUE,
+                                             position = "below")
+states <- left_join(us_states_shifted2, USStates, by = c("NAME" = "State"))
+
+
 crash_data <- readr::read_csv("https://raw.githubusercontent.com/harvard-stat108s23/materials/main/psets/data/cambridge_cyclist_ped_crash.csv")
 
-usethis::use_data(crash_data, overwrite = TRUE)
+usethis::use_data(crash_data, states, internal = TRUE, overwrite = TRUE)
