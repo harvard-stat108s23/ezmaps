@@ -101,7 +101,7 @@ pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
   }
 
   # Creating base map
-  base_map <- leaflet::leaflet(options = leafletOptions(minZoom = zoom_min, maxZoom = zoom_max)) |>
+  base_map <- leaflet::leaflet(options = leaeflet::leafletOptions(minZoom = zoom_min, maxZoom = zoom_max)) |>
     leaflet::setView(lng = set_longitude, lat = set_latitude, zoom = set_zoom) |>
     leaflet::addTiles()
 
