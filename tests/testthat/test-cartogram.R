@@ -16,19 +16,15 @@ test_that("valid inputs lead to map output no matter the input for base", {
 
 })
 
-
-
 test_that("errors out with non numeric input variable", {
   expect_error(cartogram(states, "Population", "Elect2016", geometry, NULL),
                "Please insert a numeric input variable.")
 })
 
-test_that("cerrors out with non numeric weight variable", {
+test_that("errors out with non numeric weight variable", {
   expect_error(cartogram(states, "Elect2016", "Vegetables", geometry, NULL),
-               "Please insert a numeric weight variable.")
+               "Please insert a numeric input variable.")
 })
-
-
 
 
 

@@ -33,13 +33,10 @@ cartogram <- function(data, weight, variable, geometry, base = NULL,...) {
     stop("Please input data with a spatial object with geometry column.")
   }
 
-
-  # Option 2
+  # Scaling to variable
   data_projected <- tigris::shift_geometry(data, preserve_area = TRUE, position = "below")
 
-  # Scaling to variable
   data_projected <- cartogram::cartogram_cont(data_projected, weight = weight)
-
 
   carto_map <- cartogram::cartogram_cont(data_projected, variable)
 
@@ -57,7 +54,7 @@ cartogram <- function(data, weight, variable, geometry, base = NULL,...) {
     map <- tm_shape(carto_sf) +
       tmap::tm_fill(col = variable, palette = "viridis") +
       tmap::tm_borders()+
-      tmapp::tmap_mode("view")
+      tmap::tmap_mode("view")
   }
 
   return(map)

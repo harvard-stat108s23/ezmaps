@@ -30,3 +30,4 @@ choropleth <- function(data, variable, geometry, palette = "viridis",... ){
 
   return(map)
 }
+
