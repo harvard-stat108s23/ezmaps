@@ -5,14 +5,16 @@
 #' @param latitude_var Variable containing latitude geographic coordinate
 #' @param set_longitude Longitude of general region (i.e. city, state, country)
 #' @param set_latitude Latitude of general region (i.e. city, state, country)
-#' @param popups Text that will appear when a point is pressed (i.e. date, time, etc.)
+#' @param popups Text that will appear when a point is pressed (i.e. date, etc.)
 #' @param icon_filepath Filepath of icon for point
 #' @param icon_width Width of icon
 #' @param icon_height Height of icon
 #' @param zoom_min Minimum zoom
 #' @param set_zoom General zoom level
 #' @param zoom_max Maximum zoom
-#' @param map_tile Map base, options: leaflet::providers$Stamen.Toner, leaflet::providers$Stamen.Watercolor
+#' @param map_tile Map base using leaflet providers, options:
+#'                 leaflet::providers$Stamen.Toner,
+#'                 leaflet::providers$Stamen.Watercolor
 #' @param point_color Color of points on map
 #' @param point_radius Radius of points on map
 #' @param point_inopacity Opacity of point fill, default = 0.2
@@ -42,12 +44,13 @@
 #' user_var = crash_data$year)
 
 pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
-                      set_latitude, popups = NULL, icon_filepath = NULL,
-                      icon_width = 15, icon_height = 15, zoom_min = 12,
-                      set_zoom = 13, zoom_max = 19,
-                      map_tile = leaflet::providers$Stamen.Terrain, point_color = "red",
-                      point_radius = 10, point_inopacity = 0.2,
-                      point_outopacity = 0.4, user_pal = NULL, user_var = NULL){
+                     set_latitude, popups = NULL, icon_filepath = NULL,
+                     icon_width = 15, icon_height = 15, zoom_min = 12,
+                     set_zoom = 13, zoom_max = 19,
+                     map_tile = leaflet::providers$Stamen.Terrain,
+                     point_color = "red", point_radius = 10,
+                     point_inopacity = 0.2, point_outopacity = 0.4,
+                     user_pal = NULL, user_var = NULL){
   # Character class checks
   if (!is.character(map_tile)){
     stop("Error: map_tile must be a character")
@@ -91,18 +94,28 @@ pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
     stop("Error: point_outopacity must be numeric")
   }
 
+  # Warning about user_var and user_pal dependency
+  if(is.null(user_pal) & !is.null(user_var) | !is.null(user_pal) & is.null(user_var)){
+    warning("Warning: You must input a value for both user_var and user_pal in
+            order for the circle markers to change color depending on user_var")
+  }
+
   # Creating base map
   base_map <- leaflet::leaflet(options = leafletOptions(minZoom = zoom_min, maxZoom = zoom_max)) |>
     leaflet::setView(lng = set_longitude, lat = set_latitude, zoom = set_zoom) |>
     leaflet::addTiles()
 
   # Checking class of icon filepath
-  if (!is.null(icon_filepath) & !is.character(icon_filepath)){
-    stop("Error: icon_filepath must a character.")
+  if (!is.null(icon_filepath)){
+    if (!is.character(icon_filepath)){
+      stop("Error: icon_filepath must be a character")
+    }
 
     # Checking class of icon width & height
-    if (!is.null(icon_width) & !is.numeric(icon_width) | !is.null(icon_height & !is.numeric(icon_height))){
-      stop("Error: icon_width and icon_height must be numeric.")
+    if (!is.null(icon_width)| !is.null(icon_height)){
+      if (!is.numeric(icon_width) | !is.numeric(icon_height)){
+        stop("Error: icon_width and icon_height must be numeric")
+      }
     }
 
     map_icon <- leaflet::makeIcon(iconUrl = icon_filepath, iconWidth = icon_width, iconHeight = icon_height)
@@ -114,15 +127,14 @@ pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
   }
   else{
     if(!is.null(user_pal) & !is.null(user_var)){
-
       # Check user palette class
-      if (!is.character(use_pal)){
-        stop("Error: user_pal must be a character.")
+      if (!is.character(user_pal)){
+        stop("Error: user_pal must be a character")
       }
 
       # Ensuring number of palette colors matches factor levels
       if (!(length(levels(factor(user_var))) == length(user_pal))){
-        stop("The number of colors in your palette must match the number of levels in your variable.\n",
+        stop("Error: The number of colors in your palette must match the number of levels in your variable.\n",
              "You have provided the following number of colors: ", length(user_pal))
       }
 

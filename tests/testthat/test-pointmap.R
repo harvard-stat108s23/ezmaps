@@ -1,3 +1,84 @@
+test_that("Valid input leads to leaflet map with circle markers", {
+  map <- pointmap(data = crash_data,
+                  longitude_var = crash_data$lon,
+                  latitude_var = crash_data$lat,
+                  set_longitude = -71.110558,
+                  set_latitude = 42.3736,
+                  popups = crash_data$crash_date,
+                  user_pal = c("#003f5c", "#2f4b7c","#665191",
+                               "#a05195","#d45087","#f95d6a",
+                               "#ff7c43","#ffa600"),
+                  user_var = crash_data$year)
+  expect_true(inherits(map, "leaflet"))
+})
+test_that("Provides error when length of user palette does not match factor levels", {
+  expect_error(pointmap(data = crash_data,
+                        longitude_var = crash_data$lon,
+                        latitude_var = crash_data$lat,
+                        set_longitude = -71.110558,
+                        set_latitude = 42.3736,
+                        popups = crash_data$crash_date,
+                        user_pal = c("#003f5c", "#2f4b7c","#665191",
+                                     "#a05195","#d45087","#f95d6a",
+                                     "#ff7c43"),
+                        user_var = crash_data$year),
+               "Error: The number of colors in your palette must match the number of levels in your variable.
+You have provided the following number of colors: 7")
+})
+test_that("Valid input leads to leaflet map with icon markers", {
+  car_url <- "https://raw.githubusercontent.com/harvard-stat108s23/materials/main/img/car.png"
+  map <- pointmap(data = crash_data,
+                  longitude_var = crash_data$lon,
+                  latitude_var = crash_data$lat,
+                  set_longitude = -71.110558,
+                  set_latitude = 42.3736,
+                  icon_filepath = car_url,
+                  popups = crash_data$crash_date)
+  expect_true(inherits(map, "leaflet"))
+})
+test_that("Provides error with non-numeric icon_width variable", {
+  car_url <- "https://raw.githubusercontent.com/harvard-stat108s23/materials/main/img/car.png"
+  expect_error(pointmap(data = crash_data,
+                        longitude_var = crash_data$lon,
+                        latitude_var = crash_data$lat,
+                        set_longitude = -71.110558,
+                        set_latitude = 42.3736,
+                        icon_filepath = car_url,
+                        icon_width = "YasQueen"),
+               "Error: icon_width and icon_height must be numeric")
+})
+test_that("Provides error with non-numeric icon_height variable", {
+  car_url <- "https://raw.githubusercontent.com/harvard-stat108s23/materials/main/img/car.png"
+  expect_error(pointmap(data = crash_data,
+                        longitude_var = crash_data$lon,
+                        latitude_var = crash_data$lat,
+                        set_longitude = -71.110558,
+                        set_latitude = 42.3736,
+                        icon_filepath = car_url,
+                        icon_height = "YasQueen"),
+               "Error: icon_width and icon_height must be numeric")
+})
+test_that("Provides error with non-numeric icon_height variable", {
+  car_url <- "https://raw.githubusercontent.com/harvard-stat108s23/materials/main/img/car.png"
+  expect_error(pointmap(data = crash_data,
+                        longitude_var = crash_data$lon,
+                        latitude_var = crash_data$lat,
+                        set_longitude = -71.110558,
+                        set_latitude = 42.3736,
+                        icon_filepath = car_url,
+                        icon_height = "YasQueen"),
+               "Error: icon_width and icon_height must be numeric")
+})
+test_that("Provides error with non-character user_pal variable", {
+  expect_error(pointmap(data = crash_data,
+                        longitude_var = crash_data$lon,
+                        latitude_var = crash_data$lat,
+                        set_longitude = -71.110558,
+                        set_latitude = 42.3736,
+                        user_pal = c(100000, 10, 666),
+                        user_var = crash_data$year),
+               "Error: user_pal must be a character")
+})
 test_that("Provides error with non-character map_tile variable", {
   expect_error(pointmap(data = crash_data,
                         longitude_var = crash_data$lon,
