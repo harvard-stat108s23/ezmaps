@@ -51,7 +51,7 @@ cartogram <- function(data, weight, variable, geometry, base = NULL,...) {
       tmap::tmap_mode("view")
   }
   if(is.null(base)==FALSE){
-    map <- tm_shape(carto_sf) +
+    map <- tmap::tm_shape(carto_sf) +
       tmap::tm_fill(col = variable, palette = "viridis") +
       tmap::tm_borders()+
       tmap::tmap_mode("view")

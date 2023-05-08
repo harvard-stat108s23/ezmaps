@@ -23,7 +23,6 @@
 #' @param user_var Variable to change hue of points to, corresponds to palette
 #'
 #' @return An interactive map with points
-#' @export
 #'
 #' @examples
 #' pointmap(data = crash_data,
@@ -42,6 +41,7 @@
 #'              "#a05195","#d45087","#f95d6a",
 #'              "#ff7c43","#ffa600"),
 #' user_var = crash_data$year)
+#' @export
 
 pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
                      set_latitude, popups = NULL, icon_filepath = NULL,
@@ -101,7 +101,7 @@ pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
   }
 
   # Creating base map
-  base_map <- leaflet::leaflet(options = leafletOptions(minZoom = zoom_min, maxZoom = zoom_max)) |>
+  base_map <- leaflet::leaflet(options = leaflet::leafletOptions(minZoom = zoom_min, maxZoom = zoom_max)) |>
     leaflet::setView(lng = set_longitude, lat = set_latitude, zoom = set_zoom) |>
     leaflet::addTiles()
 
@@ -139,7 +139,7 @@ pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
       }
 
       # Creating palette
-      map_pal <- colorFactor(user_pal, domain = user_var)
+      map_pal <- leaflet::colorFactor(user_pal, domain = user_var)
 
       map <- base_map |>
         leaflet::addCircleMarkers(lng = ~longitude_var, lat = ~latitude_var, data = data_set, popup = popups, color = ~map_pal(user_var), radius = point_radius, fillOpacity = point_inopacity, opacity = point_outopacity) |>
