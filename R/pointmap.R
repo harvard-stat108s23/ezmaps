@@ -139,7 +139,7 @@ pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
       }
 
       # Creating palette
-      map_pal <- colorFactor(user_pal, domain = user_var)
+      map_pal <- leaflet::colorFactor(user_pal, domain = user_var)
 
       map <- base_map |>
         leaflet::addCircleMarkers(lng = ~longitude_var, lat = ~latitude_var, data = data_set, popup = popups, color = ~map_pal(user_var), radius = point_radius, fillOpacity = point_inopacity, opacity = point_outopacity) |>
