@@ -23,7 +23,6 @@
 #' @param user_var Variable to change hue of points to, corresponds to palette
 #'
 #' @return An interactive map with points
-#' @export
 #'
 #' @examples
 #' pointmap(data = crash_data,
@@ -42,6 +41,7 @@
 #'              "#a05195","#d45087","#f95d6a",
 #'              "#ff7c43","#ffa600"),
 #' user_var = crash_data$year)
+#' @export
 
 pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
                      set_latitude, popups = NULL, icon_filepath = NULL,
