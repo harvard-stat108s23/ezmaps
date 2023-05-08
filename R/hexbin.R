@@ -1,99 +1,73 @@
-#' What it does
+#' Creates an interactive hexbin map using the viridis palette
 #'
-#' @param var Explanation
-
-#' @return An interactive map with points
+#' @param data Dataset with geometry/multipolygon data
+#' @param fill Variable used to fill the hexagons
+#' @param labels Variable used to label the hexagons
+#' @param palette Variable corresponding to the palette
+#' @param geometry Variable that gives geometry/multipolygon data
+#' @param option Variable corresponding to seed from generate_hexbin(); default NULL
+#' @param base Adds a base map to the background; default NULL
+#' @param ...
+#'
+#' @return An interactive hexbin map
 #' @export
 #'
 #' @examples
-#' point_map(data = crash_data,
-#' longitude_var = crash_data$lon,
-#' latitude_var = crash_data$lat
-#' set_longitude = -71.110558,
-#' set_latitude = 42.3736)
-#'
-#' point_map(data = crash_data,
-#' longitude_var = crash_data$lon,
-#' latitude_var = crash_data$lat,
-#' set_longitude = -71.110558,
-#' set_latitude = 42.3736,
-#' popups = crash_data$crash_date,
-#' user_pal = c("#003f5c", "#2f4b7c","#665191",
-#'              "#a05195","#d45087","#f95d6a",
-#'              "#ff7c43","#ffa600"),
-#' user_var = crash_data$year)
+#' hexbin(data = states, fill = "Vegetables", labels = "STUSPS", geometry = geometry, palette = "viridis")
 
-pointmap <- function(data_set, longitude_var, latitude_var, set_longitude,
-                     set_latitude, popups = NULL, icon_filepath = NULL,
-                     icon_width = 15, icon_height = 15, zoom_min = 12,
-                     set_zoom = 13, zoom_max = 19,
-                     map_tile = providers$Stamen.Terrain, point_color = "red",
-                     user_radius = 10, user_inopacity = 0.2,
-                     user_outopacity = 0.4, user_pal = NULL, user_var = NULL){
-  # Class checks
-  stopifnot(is.numeric(longitude_var))
-  stopifnot(is.numeric(latitude_var))
-  stopifnot(is.numeric(set_longitude))
-  stopifnot(is.numeric(set_latitude))
-  stopifnot(is.numeric(zoom_min))
-  stopifnot(is.numeric(set_zoom))
-  stopifnot(is.numeric(zoom_max))
-  stopifnot(is.character(map_tile))
-  stopifnot(is.character(point_color))
-  stopifnot(is.numeric(user_radius))
-  stopifnot(is.numeric(user_inopacity))
-  stopifnot(is.numeric(user_outopacity))
+hexbin <- function(data, fill, labels, geometry, palette = "viridis", option = NULL, base = NULL,...) {
+  # packages
+  # library(geogrid)
+  # library(sf)
+  # library(tmap)
+  # library(Lock5Data)
+  # library(tidyverse)
 
-  # Creating base map
-  base_map <- leaflet::leaflet(options = leafletOptions(minZoom = zoom_min, maxZoom = zoom_max)) |>
-    leaflet::setView(lng = set_longitude, lat = set_latitude, zoom = set_zoom) |>
-    leaflet::addTiles()
-
-  # Check popups
-  if (!is.null(popups)){
-    stopifnot(is.character(popups))
+  # Check inputs
+  ## Check: dataset contains geometry
+  if (!inherits(data, "sf")) {
+    stop("`data` does not include a geometry or `multipolygon` column")
+  }
+  ## Check: fill variable is numeric
+  if (!is.numeric(data[[variable]])) {
+    stop("`fill` must be type `numeric`")
+  }
+  ## Check: labels variable is character/factor
+  # TODO
+  if (!is.character(data[[labels]])) {
+    stop("`labels` must be type `character` or `factor`")
+  }
+  ## Check: option variable is numeric
+  if (!is.character(data[[option]])) {
+    stop("`option` must be type `numeric`. choose seed using generate_hexbin()")
   }
 
-  if (!is.null(icon_filepath)){
-    # Checking class of icon filepath
-    stopifnot(is.character(icon_filepath))
+  # # Base map
+  # if(is.null(base)==TRUE){
+  #   map <- tmap::tm_shape(carto_sf) +
+  #     tmap::tm_basemap(NULL) +
+  #     tmap::tm_fill(col = variable, palette = "viridis") +
+  #     tmap::tm_borders() +
+  #     tmap::tmap_mode("view")
+  # }
+  # if(is.null(base)==FALSE){
+  #   map <- tm_shape(carto_sf) +
+  #     tmap::tm_fill(col = variable, palette = "viridis") +
+  #     tmap::tm_borders()+
+  #     tmap::tmap_mode("view")
+  # }
 
-    # Checking class of icon width & height
-    if (!is.null(icon_width) & !is.null(icon_height)){
-      stopifnot(is.numeric(icon_width) & is.numeric(icon_height))
-    }
+  # Compute grid
+  new_cells <- geogrid::calculate_grid(shape = data, grid_type = "hexagonal", seed = 4)
+  result <- geogrid::assign_polygons(states, new_cells)
 
-    map_icon <- leaflet::makeIcon(iconUrl = icon_filepath, iconWidth = icon_width, iconHeight = icon_height)
+  # Make hexbin map
+  map <- tmap::tm_shape(result) +
+    tmap::tm_polygons(col = fill, palette = palette) +
+    tmap::tm_text(text = labels) +
+    tmap::tmap_mode("view")
 
-    map <- base_map |>
-      leaflet::addMarkers(lng = ~longitude_var, lat = ~latitude_var, data = data_set, popup = popups, icon = map_icon) |>
-      leaflet::addProviderTiles(map_tile)
-    return(map)
-  }
-  else{
-    if(!is.null(user_pal) & !is.null(user_var)){
-      # Checking class of user palette
-      stopifnot(is.character(user_pal))
-
-      # Ensuring number of palette colors matches factor levels
-      if (!(length(levels(factor(user_var))) == length(user_pal))){
-        stop("The number of colors in your palette must match the number of levels in your variable.\n",
-             "You have provided the following number of colors: ", length(user_pal))
-      }
-
-      # Creating palette
-      map_pal <- colorFactor(user_pal, domain = user_var)
-
-      map <- base_map |>
-        leaflet::addCircleMarkers(lng = ~longitude_var, lat = ~latitude_var, data = data_set, popup = popups, color = ~map_pal(user_var), radius = user_radius, fillOpacity = user_inopacity, opacity = user_outopacity) |>
-        leaflet::addProviderTiles(map_tile)
-      return(map)
-
-    } else{
-      map <- base_map |>
-        leaflet::addCircleMarkers(lng = ~longitude_var, lat = ~latitude_var, data = data_set, popup = popups, color = point_color, radius = user_radius, fillOpacity = user_inopacity, opacity = user_outopacity) |>
-        leaflet::addProviderTiles(map_tile)
-      return(map)
-    }
-  }
+  return(map)
 }
+
+
