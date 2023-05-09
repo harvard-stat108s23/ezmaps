@@ -10,3 +10,4 @@
 #'            Vegetables: Percentage of residents eating vegetables at least once per day
 #' @source states (Dataset 1): https://cran.r-project.org/web/packages/Lock5Data/index.html
 #' @source states (Dataset 2): https://github.com/walkerke/tigris/blob/master/R/states.R
+"states"
