@@ -17,6 +17,7 @@ Depends:
 LazyData: true
 Imports: 
     cartogram,
+    dplyr,
     leaflet,
     readr,
     sf,
