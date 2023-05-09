@@ -24,7 +24,8 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", warning=FALSE, message=FA
 
 # Introduction
 
-NOT DONE
+We created this package to facilitate the tidying and creating visualizations for exploratory analysis of geo-spatial data for beginners in R. This package helps create the following: point maps, choropleth maps, cartograms, and hexbin maps. 
+
 
 ## Packages
 
@@ -39,19 +40,21 @@ NOT DONE: List all packages used in your functions, including palettes.
 
 ## pointmap()
 
-To plot a map using the `pointmap` function, there are three required user inputs:
+To plot a map using the `pointmap` function, there are five required user inputs:
 
-1. data
+1. data: The data set 
 
-2. longitude_var
+2. longitude_var: The variable containing longitude values
 
-3. latitude_var
+3. latitude_var: The variable containing latitude values
 
-4. set_longitude
+4. set_longitude: The approximate longitude value of the region to center the map on (i.e. city, state, country)
 
-5. set_latitude
+5. set_latitude: The approximate latitude value of the region to center the map on (i.e. city, state, country)
 
-For example if we want to plot a point map using circle markers with a particular palette along with supplying a popup:
+In addition to these inputs are others which allow for different markers, palettes, popups, etc. 
+
+For example if we want to plot a point map using circle markers with a particular palette and a popup we would do the following:
 
 ```{r,fig.width=9,fig.height=9}
 library(ezmaps)
