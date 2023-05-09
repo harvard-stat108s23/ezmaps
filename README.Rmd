@@ -1,5 +1,6 @@
 ---
 output: github_document
+always_allow_html: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -9,8 +10,13 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "75%",
+  warning = FALSE,
+  message = FALSE,
+  fig.retina = 2,
+  fig.align = 'center'
 )
+library(ezmaps)
 ```
 
 # ezmaps
@@ -18,7 +24,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of ezmaps is to ...
+The goal of ezmaps is to help beginners conduct exploratory analysis of geo-spatial data via interactive visualizations.
 
 ## Installation
 
@@ -26,30 +32,44 @@ You can install the development version of ezmaps from [GitHub](https://github.c
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("harvard-stat108s23/project2-group7")
+devtools::install_github("harvard-stat108s23/ezmaps")
 ```
 
-## Example
+## Functions
 
-This is a basic example which shows you how to solve a common problem:
+## pointmap()
 
-```{r example}
-library(ezmaps)
-## basic example code
+The `pointmap` function has the following inputs:
+
+* Required - data, longitude_var, latitude_var, set_longitude, set_latitude
+* Optional - popups, icon_filepath, icon_width, icon_height, zoom_min, zoom_max, set_zoom, map_tile, point_color, point_radius, point_inopacity, point_outopacity, user_pal, user_var
+
+If you are creating a point map with circle markers, you are able to use the following inputs: popups, zoom_min, zoom_max, set_zoom, map_tile, point_color, point_radius, point_inopacity, point_outopacity, user_pal, user_var
+
+If you are creating a point map with icon markers, you are able to use the following inputs: popups, icon_filepath, icon_width, icon_height, zoom_min, zoom_max, set_zoom, map_tile
+
+```{r example, warning=FALSE}
+pointmap(data = crash_data,
+                  longitude_var = crash_data$lon,
+                  latitude_var = crash_data$lat,
+                  set_longitude = -71.110558,
+                  set_latitude = 42.3736,
+                  popups = crash_data$crash_date,
+                  user_var = crash_data$year)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
-summary(cars)
-```
+## choropleth()
+NOT DONE
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+## cartogram()
+NOT DONE
 
-You can also embed plots, for example:
+## hexbin()
+NOT DONE
 
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
+## generate_hexbin()
+NOT DONE
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+## Datasets
+NOT DONE
