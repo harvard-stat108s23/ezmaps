@@ -1,19 +1,109 @@
 ---
 title: "ezmaps"
-output: rmarkdown::html_vignette
+author: "Ace Mejia-Sanchez, Amira Singh, & Anu Zaman"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+package: "`r packageVersion('ezmaps')`"
 vignette: >
   %\VignetteIndexEntry{ezmaps}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  html_document:
+    theme: cerulean
+    toc: true
+    toc_float: true
+    toc_depth: 3
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r, echo=FALSE, results="hide", warning=FALSE}
+suppressPackageStartupMessages({
+  library(ezmaps)
+})
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", warning=FALSE, message=FALSE, eval=TRUE)
 ```
 
-```{r setup}
+# Introduction
+
+NOT DONE
+
+## Packages
+
+There are lots of packages used across our functions, they are all gathered below:
+  
+* [leaflet](https://CRAN.R-project.org/package=leaflet)
+
+NOT DONE: List all packages used in your functions, including palettes.
+
+
+# Functions & How to Use Them
+
+## pointmap()
+
+To plot a map using the `pointmap` function, there are three required user inputs:
+
+1. data
+
+2. longitude_var
+
+3. latitude_var
+
+4. set_longitude
+
+5. set_latitude
+
+For example if we want to plot a point map using circle markers with a particular palette along with supplying a popup:
+
+```{r,fig.width=9,fig.height=9}
+library(ezmaps)
+pointmap(data = crash_data,
+                  longitude_var = crash_data$lon,
+                  latitude_var = crash_data$lat,
+                  set_longitude = -71.110558,
+                  set_latitude = 42.3736,
+                  popups = crash_data$crash_date,
+                  user_pal = c("#003f5c", "#2f4b7c","#665191",
+                               "#a05195","#d45087","#f95d6a",
+                               "#ff7c43","#ffa600"),
+                  user_var = crash_data$year)
+```
+
+
+## choropleth()
+
+NOT DONE
+
+```{r,fig.width=9,fig.height=9}
 library(ezmaps)
 ```
+
+
+## cartogram()
+
+NOT DONE
+
+```{r,fig.width=9,fig.height=9}
+library(ezmaps)
+```
+
+## hexbin()
+
+NOT DONE
+
+```{r,fig.width=9,fig.height=9}
+library(ezmaps)
+```
+
+## generate_hexbin()
+
+NOT DONE
+
+```{r,fig.width=9,fig.height=9}
+library(ezmaps)
+```
+
+
+# Session Info
+```{r sessionInfo}
+sessionInfo()
+```
+
