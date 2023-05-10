@@ -69,17 +69,17 @@ There are also optional inputs for different markers, palettes, popups: `popups`
 For example, if we want to plot a point map using circle markers with a particular palette and a popup we would do the following:
 
 ```{r,fig.width=9,fig.height=9}
-# library(ezmaps)
-# pointmap(data = crash_data,
-#                   longitude_var = crash_data$lon,
-#                   latitude_var = crash_data$lat,
-#                   set_longitude = -71.110558,
-#                   set_latitude = 42.3736,
-#                   popups = crash_data$crash_date,
-#                   user_pal = c("#003f5c", "#2f4b7c","#665191",
-#                                "#a05195","#d45087","#f95d6a",
-#                                "#ff7c43","#ffa600"),
-#                   user_var = crash_data$year)
+library(ezmaps)
+pointmap(data = crash_data,
+                  longitude_var = crash_data$lon,
+                  latitude_var = crash_data$lat,
+                  set_longitude = -71.110558,
+                  set_latitude = 42.3736,
+                  popups = crash_data$crash_date,
+                  user_pal = c("#003f5c", "#2f4b7c","#665191",
+                               "#a05195","#d45087","#f95d6a",
+                               "#ff7c43","#ffa600"),
+                  user_var = crash_data$year)
 ```
 
 ## choropleth()
