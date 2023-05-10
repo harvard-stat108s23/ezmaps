@@ -39,7 +39,7 @@ devtools::install_github("harvard-stat108s23/ezmaps")
 
 ## pointmap()
 
-The `pointmap` function has the following inputs:
+The `pointmap()` function has the following inputs:
 
 * Required - data, longitude_var, latitude_var, set_longitude, set_latitude
 * Optional - popups, icon_filepath, icon_width, icon_height, zoom_min, zoom_max, set_zoom, map_tile, point_color, point_radius, point_inopacity, point_outopacity, user_pal, user_var
@@ -60,16 +60,28 @@ pointmap(data = crash_data,
 
 
 ## choropleth()
-NOT DONE
+The `choropleth()` function has the following inputs:
+
+* Required - data, variable, geometry
+* Optional - palette
 
 ## cartogram()
-NOT DONE
+The `cartogram()` function has the following inputs:
+
+* Required - data, weight, variable, geometry
+* Optional - base
 
 ## hexbin()
-NOT DONE
+The `hexbin()` function has the following inputs:
 
-## generate_hexbin()
-NOT DONE
+* Required - data, fill, labels, geometry
+* Optional - palette, seed
+
+## tessellate()
+The `tessellate()` function has the following inputs:
+
+* Required - data, fill, geometry
+* Optional - n
 
 ## Datasets
 NOT DONE
