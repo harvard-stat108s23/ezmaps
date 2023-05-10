@@ -10,22 +10,22 @@
 #' @export
 #'
 #' @examples
-#' seed_hexbin(data = states, fill = "Vegetables", geometry = geometry, n = 6)
+#' tessellate(data = states, fill = "Vegetables", geometry = geometry, n = 6)
 
 tessellate <- function(data, fill, geometry, n = 6,...) {
 
   # Check inputs
   ## Check: dataset contains geometry
   if (!inherits(data, "sf")) {
-    stop("`data` does not include a geometry or `multipolygon` column")
+    stop("data does not include a geometry or multipolygon column")
   }
   ## Check: fill variable is numeric
   if (!is.numeric(data[[fill]])) {
-    stop("`fill` must be type `numeric`")
+    stop("fill must be type numeric")
   }
   ## Check: n variable is numeric
-  if (!is.character(data[[n]])) {
-    stop("`option` must be type `numeric`. choose seed using generate_hexbin()")
+  if (!is.numeric(n)) {
+    stop("n must be type numeric")
   }
 
   # Choose seed
@@ -35,7 +35,7 @@ tessellate <- function(data, fill, geometry, n = 6,...) {
   graphics::par(mfrow = c(round(n/3), 3), mar = c(0, 0, 2, 0))
   for (i in 1:n) {
     new_cells <- geogrid::calculate_grid(shape = data, grid_type = "hexagonal", seed = i)
-    graphics::plot(geogrid::new_cells, main = paste("Seed", i, sep = " "))
+    graphics::plot(new_cells, main = paste("Seed", i, sep = " "))
   }
 
 }

@@ -5,7 +5,7 @@
 #' @param labels Variable used to label the hexagons
 #' @param palette Palette for filling hexagons; default is Viridis
 #' @param geometry Variable that gives geometry/multipolygon data
-#' @param seed Number corresponding to seed map chosen using tessellate(); default is NULL
+#' @param seed Number corresponding to seed map chosen using tessellate()
 #' @param ...
 #'
 #' @return An interactive hexbin map
@@ -19,24 +19,31 @@ hexbin <- function(data, fill, labels, geometry, palette = "viridis", seed = NUL
   # Check inputs
   ## Check: dataset contains geometry
   if (!inherits(data, "sf")) {
-    stop("`data` does not include a geometry or `multipolygon` column")
+    stop("data does not include a geometry or multipolygon column")
   }
   ## Check: fill variable is numeric
   if (!is.numeric(data[[fill]])) {
-    stop("`fill` must be type `numeric`")
+    stop("fill must be type numeric")
   }
   ## Check: labels variable is character/factor
-  # TODO
-  if (!is.character(data[[labels]])) {
-    stop("`labels` must be type `character` or `factor`")
+  if((is.character(data[[labels]]) == FALSE)
+     & (is.factor(data[[labels]])) == FALSE) {
+    stop("labels must be type character or factor")
   }
   ## Check: seed option variable is numeric
-  if (!is.character(data[[seed]])) {
-    stop("`seed` must be type `numeric`. Choose seed using tessellate()")
+  if(!is.null(seed)){
+    if (!is.numeric(seed)) {
+      stop("seed must be type numeric or NULL")
+    }
   }
 
   # Compute grid
-  new_cells <- geogrid::calculate_grid(shape = data, grid_type = "hexagonal", seed = seed)
+  if(!is.null(seed)){
+    new_cells <- geogrid::calculate_grid(shape = data, grid_type = "hexagonal", seed = seed)
+  } else if(is.null(seed)){
+    new_cells <- geogrid::calculate_grid(shape = data, grid_type = "hexagonal")
+  }
+
   result <- geogrid::assign_polygons(states, new_cells)
 
   # Make hexbin map
