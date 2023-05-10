@@ -22,7 +22,7 @@ us_states <- tigris::states(cb = TRUE, resolution = "20m", progress_bar = FALSE)
 us_states_shifted <- tigris::shift_geometry(us_states,
                                              preserve_area = TRUE,
                                              position = "outside")
-states <- inner_join(us_states_shifted, Lock5Data::USStates, by = c("NAME" = "State"))
+states <- dplyr::inner_join(us_states_shifted, Lock5Data::USStates, by = c("NAME" = "State"))
 states <- states |>
   dplyr::select(Vegetables, Population, Elect2016, geometry, Region, STUSPS, NAME)
 
