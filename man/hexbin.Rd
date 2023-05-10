@@ -24,11 +24,9 @@ hexbin(
 
 \item{geometry}{Variable that gives geometry/multipolygon data}
 
-\item{palette}{Variable corresponding to the palette}
+\item{palette}{Palette for filling hexagons; default is Viridis}
 
-\item{option}{Variable corresponding to seed from generate_hexbin(); default NULL}
-
-\item{base}{Adds a base map to the background; default NULL}
+\item{option}{Number corresponding to seed map chosen using tessellate(); default is NULL}
 
 \item{...}{}
 }
