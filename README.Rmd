@@ -37,7 +37,7 @@ devtools::install_github("harvard-stat108s23/ezmaps")
 
 ## Functions and examples
 
-You can find these and more code examples for `ezmaps` under `vignettes`.
+You can find these and more code examples for `ezmaps` under `vignettes`. As interactive maps are rendered as HTML documents, the outputs for the code examples below cannot be rendered in a `README.md` file, but can be viewed there or by running the code chunks below in your console.
 
 ### pointmap()
 
@@ -52,6 +52,19 @@ If you are creating a point map with circle markers, you are able to use the fol
 
 If you are creating a point map with icon markers, you are able to use the following inputs: popups, icon_filepath, icon_width, icon_height, zoom_min, zoom_max, set_zoom, map_tile
 
+```{r,fig.width=9,fig.height=9, eval = FALSE}
+library(ezmaps)
+pointmap(data = crash_data,
+                  longitude_var = crash_data$lon,
+                  latitude_var = crash_data$lat,
+                  set_longitude = -71.110558,
+                  set_latitude = 42.3736,
+                  popups = crash_data$crash_date,
+                  user_pal = c("#003f5c", "#2f4b7c","#665191",
+                               "#a05195","#d45087","#f95d6a",
+                               "#ff7c43","#ffa600"),
+                  user_var = crash_data$year)
+```
 
 ### choropleth()
 
@@ -62,11 +75,11 @@ This function has the following inputs:
 * Required - data, variable, geometry
 * Optional - palette
 
-```{r,fig.width=9,fig.height=9}
+```{r,fig.width=9,fig.height=9, eval=FALSE}
 library(ezmaps)
-choropleth(data = states, 
-           variable = "Population", 
-           geometry = geometry, 
+choropleth(data = states,
+           variable = "Population",
+           geometry = geometry,
            palette = "viridis")
 ```
 
@@ -80,12 +93,12 @@ This function has the following inputs:
 * Optional - base
 
 
-```{r,fig.width=9,fig.height=9}
+```{r,fig.width=9,fig.height=9,eval=FALSE}
 library(ezmaps)
-cartogram(data = states, 
-          weight = "Population", 
-          variable = "Vegetables", 
-          geometry = geometry, 
+cartogram(data = states,
+          weight = "Population",
+          variable = "Vegetables",
+          geometry = geometry,
           palette = "viridis",
           base = 1)
 ```
@@ -109,7 +122,7 @@ This function has the following inputs:
 * Optional - n
 
 
-```{r,fig.width=9,fig.height=9}
+```{r,fig.width=9,fig.height=9,eval=FALSE}
 library(ezmaps)
 tessellate(data = states, geometry = geometry, n = 6)
 hexbin(data = states,

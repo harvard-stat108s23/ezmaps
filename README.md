@@ -7,7 +7,9 @@
 <!-- badges: end -->
 
 The goal of ezmaps is to help beginners conduct exploratory analysis of
-geo-spatial data via interactive visualizations.
+geospatial data via interactive visualizations. This package helps
+create the following: point maps, choropleth maps, cartograms, and
+hexbin maps.
 
 ## Installation
 
@@ -19,11 +21,21 @@ You can install the development version of ezmaps from
 devtools::install_github("harvard-stat108s23/ezmaps")
 ```
 
-## Functions
+## Functions and examples
 
-## pointmap()
+You can find these and more code examples for `ezmaps` under
+`vignettes`. As interactive maps are rendered as HTML documents, the
+outputs for the code examples below cannot be rendered in a `README.md`
+file, but can be viewed there or by running the code chunks below in
+your console.
 
-The `pointmap()` function has the following inputs:
+### pointmap()
+
+The `pointmap()` function plots geographic latitude/longitude data on an
+interactive map. Points can be colored according to the values of a
+variable.
+
+This function has the following inputs:
 
 - Required - data, longitude_var, latitude_var, set_longitude,
   set_latitude
@@ -41,52 +53,106 @@ the following inputs: popups, icon_filepath, icon_width, icon_height,
 zoom_min, zoom_max, set_zoom, map_tile
 
 ``` r
-# pointmap(data = crash_data,
-#                   longitude_var = crash_data$lon,
-#                   latitude_var = crash_data$lat,
-#                   set_longitude = -71.110558,
-#                   set_latitude = 42.3736,
-#                   popups = crash_data$crash_date,
-#                   user_var = crash_data$year)
+library(ezmaps)
+pointmap(data = crash_data,
+                  longitude_var = crash_data$lon,
+                  latitude_var = crash_data$lat,
+                  set_longitude = -71.110558,
+                  set_latitude = 42.3736,
+                  popups = crash_data$crash_date,
+                  user_pal = c("#003f5c", "#2f4b7c","#665191",
+                               "#a05195","#d45087","#f95d6a",
+                               "#ff7c43","#ffa600"),
+                  user_var = crash_data$year)
 ```
 
-## choropleth()
+### choropleth()
 
-The `choropleth()` function has the following inputs:
+The `choropleth()` function plots regions and colors the regions
+according to the values of a variable.
+
+This function has the following inputs:
 
 - Required - data, variable, geometry
 - Optional - palette
 
-## cartogram()
+``` r
+library(ezmaps)
+choropleth(data = states,
+           variable = "Population",
+           geometry = geometry,
+           palette = "viridis")
+```
 
-The `cartogram()` function has the following inputs:
+### cartogram()
+
+The `cartogram()` function plots regions and distorts their size and
+shape according to the values of a variable. The regions can optionally
+be colored according to the values of that variable or of another
+variable.
+
+This function has the following inputs:
 
 - Required - data, weight, variable, geometry
 - Optional - base
 
-## hexbin()
+``` r
+library(ezmaps)
+cartogram(data = states,
+          weight = "Population",
+          variable = "Vegetables",
+          geometry = geometry,
+          palette = "viridis",
+          base = 1)
+```
 
-The `hexbin()` function has the following inputs:
+### hexbin()
+
+The `hexbin()` function plots a hexagonal grid fitted to the original
+geometry of the geographic regions of interest. Each hexagon represents
+one region and is labeled accordingly. The hexagons are colored
+according to the values of a variable.
+
+This function has the following inputs:
 
 - Required - data, fill, labels, geometry
 - Optional - palette, seed
 
-## tessellate()
+### tessellate()
 
-The `tessellate()` function has the following inputs:
+The `tessellate()` function is an optional function that allows the user
+to preview configurations of hexagonal grids (“seed maps”) across the
+original geometry of the geographic regions of interest. To use this
+function, the user must call `tessellate()` before `hexbin()`. The user
+can then input one of the seed maps created using `tessellate()` as the
+base grid used by the `hexbin()` function using the `hexbin(seed)`
+argument.
+
+This function has the following inputs:
 
 - Required - data, fill, geometry
 - Optional - n
 
+``` r
+library(ezmaps)
+tessellate(data = states, geometry = geometry, n = 6)
+hexbin(data = states,
+       fill = "Vegetables",
+       labels = "STUSPS",
+       geometry = geometry,
+       palette = "viridis",
+       seed = 4)
+```
+
 ## Datasets
 
-## crash_data
+### crash_data
 
 A tibble with 1311 rows and 5 variables. Contains information on local
 pedestrian/cyclist crashes in Cambridge, MA, United States.
 [Source](https://github.com/harvard-stat108s23/materials/blob/main/psets/data/cambridge_cyclist_ped_crash.csv)
 
-## states
+### states
 
 A simple-feature dataframe with 50 rows and 7 variables. Contains
 information on the residents of US states and multipolygon/shapefile
@@ -95,3 +161,28 @@ data for the geometries of US states using a combination of the
 &
 [tigris::states](https://github.com/walkerke/tigris/blob/master/R/states.R)
 datasets, respectively.
+
+## License
+
+### MIT License
+
+Copyright (c) 2023 ezmaps authors
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+“Software”), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
