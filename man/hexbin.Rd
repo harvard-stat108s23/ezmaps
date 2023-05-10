@@ -10,7 +10,7 @@ hexbin(
   labels,
   geometry,
   palette = "viridis",
-  option = NULL,
+  seed = NULL,
   base = NULL,
   ...
 )
@@ -26,7 +26,7 @@ hexbin(
 
 \item{palette}{Palette for filling hexagons; default is Viridis}
 
-\item{option}{Number corresponding to seed map chosen using tessellate(); default is NULL}
+\item{seed}{Number corresponding to seed map chosen using tessellate()}
 
 \item{...}{}
 }
@@ -37,5 +37,9 @@ An interactive hexbin map
 Creates an interactive hexbin map using the viridis palette
 }
 \examples{
-hexbin(data = states, fill = "Vegetables", labels = "STUSPS", geometry = geometry, palette = "viridis")
+hexbin(data = states,
+fill = "Vegetables",
+labels = "STUSPS",
+geometry = geometry,
+palette = "viridis")
 }
