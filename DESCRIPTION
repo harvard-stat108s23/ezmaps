@@ -18,6 +18,8 @@ LazyData: true
 Imports: 
     cartogram,
     dplyr,
+    geogrid,
+    graphics,
     leaflet,
     readr,
     sf,
