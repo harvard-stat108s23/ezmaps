@@ -84,6 +84,21 @@ pointmap(data = crash_data,
                   user_var = crash_data$year)
 ```
 
+In comparison, plotting a point map with the `leaflet` package requires three functions:
+
+```{r}
+library(leaflet)
+
+leaflet::leaflet(options = leafletOptions(minZoom = 12, 
+                                 maxZoom = 16)) %>%
+leaflet::addCircleMarkers(lng = ~lon, 
+                 lat = ~lat, 
+                 data = crash_data, 
+                 popup = crash_data$crash_date) %>%
+leaflet::addProviderTiles(providers$Stamen.Terrain)
+```
+
+
 ## Creating choropleth maps with choropleth()
 
 A choropleth map uses color to show how a variable varies across a geographic area or to show the level of variability within a region, at varying levels of granularity.
@@ -110,6 +125,18 @@ choropleth(data = states,
            palette = "viridis")
 ```
 
+This function simplifies the equivalent code below:
+
+
+```{r}
+library(ggplot2)
+ggplot2::ggplot(data = states, 
+                mapping = aes(geometry = geometry, fill = Population)) + 
+  ggplot2::geom_sf() + 
+  ggplot2::coord_sf() + 
+  ggplot2::scale_fill_viridis_c( direction = -1) + theme_void()
+```
+
 
 ## Creating cartograms with cartogram()
 
@@ -133,12 +160,29 @@ For example, if we want to plot a cartogram for the percentage of the United Sta
 
 ```{r,fig.width=9,fig.height=9}
 library(ezmaps)
-cartogram(data = states, 
+ezmaps::cartogram(data = states, 
           weight = "Population", 
           variable = "Vegetables", 
           geometry = geometry, 
           palette = "viridis",
           base = 1)
+```
+
+This function simplifies the equivalent code below:
+
+
+
+```{r}
+library(cartogram)
+library(ggplot2)
+states <- cartogram::cartogram_cont(states, 
+                         weight = "Population")
+ggplot2::ggplot() + geom_sf(data = states, 
+                   mapping = aes(geometry = geometry, fill = Vegetables)) + 
+  ggplot2::scale_fill_viridis_c(name = "Percentage \nof Residents\nThat Eat (1) \nVegetable Per Day",  
+                       direction = -1) + 
+  ggplot2::theme_void()
+
 ```
 
 ## Creating hexbin maps with hexbin()
@@ -204,9 +248,9 @@ hexbin(data = states,
        labels = "STUSPS",
        geometry = geometry,
        palette = "viridis",
-       seed = 6)
+       seed = 5)
 ```
-
+                                                                                                            
 
 # Other notes
 
