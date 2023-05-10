@@ -3,10 +3,9 @@
 #' @param data Dataset with geometry/multipolygon data
 #' @param fill Variable used to fill the hexagons
 #' @param labels Variable used to label the hexagons
-#' @param palette Variable corresponding to the palette
+#' @param palette Palette for filling hexagons; default is Viridis
 #' @param geometry Variable that gives geometry/multipolygon data
-#' @param option Variable corresponding to seed from generate_hexbin(); default NULL
-#' @param base Adds a base map to the background; default NULL
+#' @param option Number corresponding to seed map chosen using tessellate(); default is NULL
 #' @param ...
 #'
 #' @return An interactive hexbin map
@@ -16,12 +15,6 @@
 #' hexbin(data = states, fill = "Vegetables", labels = "STUSPS", geometry = geometry, palette = "viridis")
 
 hexbin <- function(data, fill, labels, geometry, palette = "viridis", option = NULL, base = NULL,...) {
-  # packages
-  # library(geogrid)
-  # library(sf)
-  # library(tmap)
-  # library(Lock5Data)
-  # library(tidyverse)
 
   # Check inputs
   ## Check: dataset contains geometry
@@ -29,7 +22,7 @@ hexbin <- function(data, fill, labels, geometry, palette = "viridis", option = N
     stop("`data` does not include a geometry or `multipolygon` column")
   }
   ## Check: fill variable is numeric
-  if (!is.numeric(data[[variable]])) {
+  if (!is.numeric(data[[fill]])) {
     stop("`fill` must be type `numeric`")
   }
   ## Check: labels variable is character/factor
@@ -39,26 +32,11 @@ hexbin <- function(data, fill, labels, geometry, palette = "viridis", option = N
   }
   ## Check: option variable is numeric
   if (!is.character(data[[option]])) {
-    stop("`option` must be type `numeric`. choose seed using generate_hexbin()")
+    stop("`option` must be type `numeric`. Choose seed using seed_hexbin()")
   }
 
-  # # Base map
-  # if(is.null(base)==TRUE){
-  #   map <- tmap::tm_shape(carto_sf) +
-  #     tmap::tm_basemap(NULL) +
-  #     tmap::tm_fill(col = variable, palette = "viridis") +
-  #     tmap::tm_borders() +
-  #     tmap::tmap_mode("view")
-  # }
-  # if(is.null(base)==FALSE){
-  #   map <- tm_shape(carto_sf) +
-  #     tmap::tm_fill(col = variable, palette = "viridis") +
-  #     tmap::tm_borders()+
-  #     tmap::tmap_mode("view")
-  # }
-
   # Compute grid
-  new_cells <- geogrid::calculate_grid(shape = data, grid_type = "hexagonal", seed = 4)
+  new_cells <- geogrid::calculate_grid(shape = data, grid_type = "hexagonal", seed = seed)
   result <- geogrid::assign_polygons(states, new_cells)
 
   # Make hexbin map
