@@ -24,7 +24,7 @@ library(ezmaps)
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of ezmaps is to help beginners conduct exploratory analysis of geo-spatial data via interactive visualizations.
+The goal of ezmaps is to help beginners conduct exploratory analysis of geospatial data via interactive visualizations. This package helps create the following: point maps, choropleth maps, cartograms, and hexbin maps. 
 
 ## Installation
 
@@ -35,11 +35,15 @@ You can install the development version of ezmaps from [GitHub](https://github.c
 devtools::install_github("harvard-stat108s23/ezmaps")
 ```
 
-## Functions
+## Functions and examples
 
-## pointmap()
+You can find these and more code examples for `ezmaps` under `vignettes`.
 
-The `pointmap()` function has the following inputs:
+### pointmap()
+
+The `pointmap()` function plots geographic latitude/longitude data on an interactive map. Points can be colored according to the values of a variable. 
+
+This function has the following inputs:
 
 * Required - data, longitude_var, latitude_var, set_longitude, set_latitude
 * Optional - popups, icon_filepath, icon_width, icon_height, zoom_min, zoom_max, set_zoom, map_tile, point_color, point_radius, point_inopacity, point_outopacity, user_pal, user_var
@@ -49,8 +53,11 @@ If you are creating a point map with circle markers, you are able to use the fol
 If you are creating a point map with icon markers, you are able to use the following inputs: popups, icon_filepath, icon_width, icon_height, zoom_min, zoom_max, set_zoom, map_tile
 
 
-## choropleth()
-The `choropleth()` function has the following inputs:
+### choropleth()
+
+The `choropleth()` function plots regions and colors the regions according to the values of a variable. 
+
+This function has the following inputs:
 
 * Required - data, variable, geometry
 * Optional - palette
@@ -63,8 +70,11 @@ choropleth(data = states,
            palette = "viridis")
 ```
 
-## cartogram()
-The `cartogram()` function has the following inputs:
+### cartogram()
+
+The `cartogram()` function plots regions and distorts their size and shape according to the values of a variable. The regions can optionally be colored according to the values of that variable or of another  variable.
+
+This function has the following inputs:
 
 * Required - data, weight, variable, geometry
 * Optional - base
@@ -80,22 +90,63 @@ cartogram(data = states,
           base = 1)
 ```
 
-## hexbin()
-The `hexbin()` function has the following inputs:
+### hexbin()
+
+The `hexbin()` function plots a hexagonal grid fitted to the original geometry of the geographic regions of interest. Each hexagon represents one region and is labeled accordingly. The hexagons are colored according to the values of a variable.
+
+This function has the following inputs:
 
 * Required - data, fill, labels, geometry
 * Optional - palette, seed
 
-## tessellate()
-The `tessellate()` function has the following inputs:
+### tessellate()
+
+The `tessellate()` function is an optional function that allows the user to preview configurations of hexagonal grids ("seed maps") across the original geometry of the geographic regions of interest. To use this function, the user must call `tessellate()` before `hexbin()`. The user can then input one of the seed maps created using `tessellate()` as the base grid used by the `hexbin()` function using the `hexbin(seed)` argument. 
+
+This function has the following inputs:
 
 * Required - data, fill, geometry
 * Optional - n
 
+
+```{r,fig.width=9,fig.height=9}
+library(ezmaps)
+tessellate(data = states, geometry = geometry, n = 6)
+hexbin(data = states,
+       fill = "Vegetables",
+       labels = "STUSPS",
+       geometry = geometry,
+       palette = "viridis",
+       seed = 4)
+```
+
 ## Datasets
 
-## crash_data
+### crash_data
 A tibble with 1311 rows and 5 variables. Contains information on local pedestrian/cyclist crashes in Cambridge, MA, United States. [Source](https://github.com/harvard-stat108s23/materials/blob/main/psets/data/cambridge_cyclist_ped_crash.csv)
 
-## states
+### states
 A simple-feature dataframe with 50 rows and 7 variables. Contains information on the residents of US states and multipolygon/shapefile data for the geometries of US states using a combination of the [Lock5Data::USStates](https://cran.r-project.org/web/packages/Lock5Data/index.html) & [tigris::states](https://github.com/walkerke/tigris/blob/master/R/states.R) datasets, respectively.
+
+## License
+### MIT License
+
+Copyright (c) 2023 ezmaps authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

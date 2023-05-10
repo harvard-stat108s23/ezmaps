@@ -24,7 +24,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", warning=FALSE, message=FA
 
 # Introduction
 
-We created this package to facilitate the tidying and creating visualizations for exploratory analysis of geo-spatial data for beginners in R. This package helps create the following: point maps, choropleth maps, cartograms, and hexbin maps. 
+We created this package to facilitate the tidying and creating visualizations for exploratory analysis of geo-spatial data in R for beginners. This package helps create the following: point maps, choropleth maps, cartograms, and hexbin maps. 
 
 
 ## Packages
@@ -50,9 +50,11 @@ We use several packages across our functions, listed below:
 
 # How to Use the Functions
 
-## pointmap()
+## Creating point maps with pointmap()
 
-To plot an interactive map using the `pointmap` function, there are five required user inputs:
+A point map plots geographic latitude/longitude data on a map, typically to visualize the spatial distribution of individual entities, objects, events, etc. at a high level of granularity. Points can be colored according to the values of a variable.
+
+This function is a wrapper for the `leaflet()` function from the `leaflet` package. We recommend beginners use `ezmaps::pointmap()` to gain familiarity with `leaflet::leaflet()` before viewing the documentation and vignettes of that package for additional functionalities. To plot an interactive map using the `ezmaps::pointmap()` function, there are five required user inputs:
 
 1. `data`: The dataset 
 
@@ -82,9 +84,11 @@ pointmap(data = crash_data,
                   user_var = crash_data$year)
 ```
 
-## choropleth()
+## Creating choropleth maps with choropleth()
 
-To plot an interactive map using the `choropleth` function, there are four required user inputs:
+A choropleth map uses color to show how a variable varies across a geographic area or to show the level of variability within a region, at varying levels of granularity.
+
+To plot an interactive map using the `ezmaps::choropleth()` function, there are four required user inputs:
 
 1. `data`: The dataset
 
@@ -107,9 +111,11 @@ choropleth(data = states,
 ```
 
 
-## cartogram()
+## Creating cartograms with cartogram()
 
-To plot an interactive map using the `cartogram` function, there are five required user inputs:
+A cartogram distorts the geometry of geographic regions based on a variable. Regions can remain uncolored, be colored by the same variable, or be colored by a different variable. 
+
+This function is a wrapper for the `cartogram_cont()` function from the `cartogram` package. We recommend beginners use `ezmaps::cartogram()` to gain familiarity with `cartogram::cartogram_cont()` and `sf` type data before viewing the documentation and vignettes of that package for additional functionalities. To plot an interactive map using the `ezmaps::cartogram()` function, there are five required user inputs:
 
 1. `data`: The dataset
 
@@ -135,9 +141,13 @@ cartogram(data = states,
           base = 1)
 ```
 
-## hexbin()
+## Creating hexbin maps with hexbin()
 
-To plot an interactive map using the `hexbin` function, there are five required user inputs:
+An issue that can arise with choropleth maps is that regions are different sizes, which can lead to the visual misconception that the importance or weight of each region is determined by its geographic area, rather than by the respective value of the variable being mapped. On choropleth maps, larger areas receive more visual emphasis. One method of mitigating this issue is to use a hexbin mapping technique.
+
+The hexbin map is a size-adjusted choropleth map that allows the user to compare how a variable differs by a region through differences in color. The user also inputs a column for labeling the different regions, since the regions are necessarily indistinguishable by shape or size. 
+
+This function simplifies the process of creating hexbin maps using the `geogrid` package. It plots a hexagonal grid fitted to the original geometry of the geographic regions of interest. Each hexagon represents one region and is labeled accordingly. The hexagons are colored according to the values of a variable. To plot an interactive map using the `ezmaps::hexbin()` function, there are five required user inputs:
 
 1. `data`: The dataset
 
@@ -162,9 +172,13 @@ hexbin(data = states,
                 palette = "viridis")
 ```
 
-## tessellate()
+## Using tessellate() to choose base grid for hexbin maps
 
-To generate hexagon tessellations fitted to geographical multipolygon data ("seed maps"), there are four required inputs:
+This optional function allows the user to view multiple configurations of hexagon tessellations ("seed maps") fitted to the geographical multipolygon data of interest. While this is function is not required to create hexbins with `ezmaps::hexbin()`, we recommend using `ezmaps::tessellate()` to identify the seed map of best fit for use with `ezmaps::hexbin()`. 
+
+Necessarily, the user must call `tessellate()` before `hexbin()`. The user can then input one of the seed maps created using `tessellate()` as the base grid used by the `hexbin()` function using the `hexbin(seed)` argument.  
+
+To create seed maps using the `ezmaps::tessellate()` function, there are three required inputs:
 
 1. `data`: The dataset
 
@@ -178,6 +192,19 @@ For example, if we want to generate seed maps for the United States, we would do
 library(ezmaps)
 tessellate(data = states, geometry = geometry, n = 6)
 ```
+
+Then, if we wanted to choose seed map 4 as the base base grid used by the `hexbin()` function, we would use the `hexbin(seed)` argument. 
+
+```{r}
+library(ezmaps)
+hexbin(data = states,
+       fill = "Vegetables",
+       labels = "STUSPS",
+       geometry = geometry,
+       palette = "viridis",
+       seed = 4)
+```
+
 
 
 # Session Info
