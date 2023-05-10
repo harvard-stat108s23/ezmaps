@@ -12,7 +12,7 @@
 #' @examples
 #' seed_hexbin(data = states, fill = "Vegetables", geometry = geometry, n = 6)
 
-seed_hexbin <- function(data, fill, geometry, n,...) {
+tessellate <- function(data, fill, geometry, n,...) {
 
   # Check inputs
   ## Check: dataset contains geometry
