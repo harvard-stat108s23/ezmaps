@@ -5,7 +5,7 @@
 #' @param labels Variable used to label the hexagons
 #' @param palette Palette for filling hexagons; default is Viridis
 #' @param geometry Variable that gives geometry/multipolygon data
-#' @param option Number corresponding to seed map chosen using tessellate(); default is NULL
+#' @param seed Number corresponding to seed map chosen using tessellate(); default is NULL
 #' @param ...
 #'
 #' @return An interactive hexbin map
@@ -14,7 +14,7 @@
 #' @examples
 #' hexbin(data = states, fill = "Vegetables", labels = "STUSPS", geometry = geometry, palette = "viridis")
 
-hexbin <- function(data, fill, labels, geometry, palette = "viridis", option = NULL, base = NULL,...) {
+hexbin <- function(data, fill, labels, geometry, palette = "viridis", seed = NULL, base = NULL,...) {
 
   # Check inputs
   ## Check: dataset contains geometry
@@ -30,9 +30,9 @@ hexbin <- function(data, fill, labels, geometry, palette = "viridis", option = N
   if (!is.character(data[[labels]])) {
     stop("`labels` must be type `character` or `factor`")
   }
-  ## Check: option variable is numeric
-  if (!is.character(data[[option]])) {
-    stop("`option` must be type `numeric`. Choose seed using seed_hexbin()")
+  ## Check: seed option variable is numeric
+  if (!is.character(data[[seed]])) {
+    stop("`seed` must be type `numeric`. Choose seed using tessellate()")
   }
 
   # Compute grid

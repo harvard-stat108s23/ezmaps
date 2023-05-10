@@ -3,7 +3,7 @@
 #' @param data Dataset with geometry/multipolygon data
 #' @param fill Variable used to fill the hexagons
 #' @param geometry Variable that gives geometry/multipolygon data
-#' @param n Number of seed maps to generate
+#' @param n Number of seed maps to generate; default 6
 #' @param ...
 #'
 #' @return Possible hexagon tessellations as base for hexbin maps
@@ -12,7 +12,7 @@
 #' @examples
 #' seed_hexbin(data = states, fill = "Vegetables", geometry = geometry, n = 6)
 
-tessellate <- function(data, fill, geometry, n,...) {
+tessellate <- function(data, fill, geometry, n = 6,...) {
 
   # Check inputs
   ## Check: dataset contains geometry
