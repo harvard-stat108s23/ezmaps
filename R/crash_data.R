@@ -1,0 +1,11 @@
+#' Dataset 2 of 2 used in this package to test functions
+#' @format This package contains two data sets. The second data set contains
+#'         information on local pedestrian/cyclist crashes in
+#'         Cambridge, MA, United States:
+#'            year: Year that the crash took place
+#'            city_town_name: Name of town the crash took place
+#'            date: Date of crash
+#'            lat: Latitude value
+#'            lon: Longitude value
+#' @source crash_data: https://github.com/harvard-stat108s23/materials/blob/main/psets/data/cambridge_cyclist_ped_crash.csv
+"crash_data"

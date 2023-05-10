@@ -1,5 +1,3 @@
-#' Data sets that contain latitude, longitude, shape, and geometry variables
-#'
 #' @format This package contains two data sets. The first contains information on the residents of US states:
 #'            NAME: Name of state
 #'            STUSPS: State abbreviation

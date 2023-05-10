@@ -2,5 +2,5 @@
 
 export(cartogram)
 export(choropleth)
-export(label_polygons)
+export(hexbin)
 export(pointmap)
