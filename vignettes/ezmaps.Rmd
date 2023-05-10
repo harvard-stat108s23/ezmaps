@@ -29,79 +29,154 @@ We created this package to facilitate the tidying and creating visualizations fo
 
 ## Packages
 
-There are lots of packages used across our functions, they are all gathered below:
+We use several packages across our functions, listed below:
   
-* [leaflet](https://CRAN.R-project.org/package=leaflet)
+* [cartogram](https://CRAN.R-project.org/package=cartogram)
 
-NOT DONE: List all packages used in your functions, including palettes.
+* [geogrid](https://cran.r-project.org/web/packages/geogrid/)
+
+* [graphics](https://search.r-project.org/R/refmans/graphics/html/00Index.html)
+
+* [leaflet](https://CRAN.R-project.org/package=leaflet/)
+
+* [sf](https://cran.r-project.org/web/packages/sf/)
+
+* [tigris](https://cran.r-project.org/web/packages/tigris/)
+
+* [tmap](https://cran.r-project.org/web/packages/tmap/)
+
+* [viridis](https://cran.r-project.org/web/packages/viridis/index.html)
 
 
-# Functions & How to Use Them
+# How to Use the Functions
 
 ## pointmap()
 
-To plot a map using the `pointmap` function, there are five required user inputs:
+To plot an interactive map using the `pointmap` function, there are five required user inputs:
 
-1. data: The data set 
+1. `data`: The dataset 
 
-2. longitude_var: The variable containing longitude values
+2. `longitude_var`: The variable containing longitude values
 
-3. latitude_var: The variable containing latitude values
+3. `latitude_var`: The variable containing latitude values
 
-4. set_longitude: The approximate longitude value of the region to center the map on (i.e. city, state, country)
+4. `set_longitude`: The approximate longitude value of the region to center the map on (i.e. city, state, country)
 
-5. set_latitude: The approximate latitude value of the region to center the map on (i.e. city, state, country)
+5. `set_latitude`: The approximate latitude value of the region to center the map on (i.e. city, state, country)
 
-In addition to these inputs are others which allow for different markers, palettes, popups, etc. 
+There are also optional inputs for different markers, palettes, popups: `popups`, `icon_filepath`, `icon_width`, `icon_height`, `zoom_min`, `zoom_max`, `set_zoom`, `map_tile`, `point_color`, `point_radius`, `point_inopacity`, `point_outopacity`, `user_pal`, `user_var`. 
 
-For example if we want to plot a point map using circle markers with a particular palette and a popup we would do the following:
+For example, if we want to plot a point map using circle markers with a particular palette and a popup we would do the following:
 
 ```{r,fig.width=9,fig.height=9}
-library(ezmaps)
-pointmap(data = crash_data,
-                  longitude_var = crash_data$lon,
-                  latitude_var = crash_data$lat,
-                  set_longitude = -71.110558,
-                  set_latitude = 42.3736,
-                  popups = crash_data$crash_date,
-                  user_pal = c("#003f5c", "#2f4b7c","#665191",
-                               "#a05195","#d45087","#f95d6a",
-                               "#ff7c43","#ffa600"),
-                  user_var = crash_data$year)
+# library(ezmaps)
+# pointmap(data = crash_data,
+#                   longitude_var = crash_data$lon,
+#                   latitude_var = crash_data$lat,
+#                   set_longitude = -71.110558,
+#                   set_latitude = 42.3736,
+#                   popups = crash_data$crash_date,
+#                   user_pal = c("#003f5c", "#2f4b7c","#665191",
+#                                "#a05195","#d45087","#f95d6a",
+#                                "#ff7c43","#ffa600"),
+#                   user_var = crash_data$year)
 ```
-
 
 ## choropleth()
 
-NOT DONE
+To plot an interactive map using the `choropleth` function, there are four required user inputs:
+
+1. `data`: The dataset
+
+2. `variable`: The variable encoded to the shade of the colors of the regions
+
+3. `geometry`: The geometry variable of the dataset
+
+4. `palette`: The palette used to determine the colors of the different regions
+
+There are also optional user inputs, such as `alpha`, that can be added to personalize the map. The map is interactive, includes pop-ups and zoom options, and also has the Viridis palette as a default palette for colorblind accessibility.  
+
+For example, if we want to observe differences in population of different states by the differences in shades of the regions, we would do the following:
 
 ```{r,fig.width=9,fig.height=9}
 library(ezmaps)
+choropleth(data = states, 
+           variable = "Population", 
+           geometry = geometry, 
+           palette = "viridis")
 ```
 
 
 ## cartogram()
 
-NOT DONE
+To plot an interactive map using the `cartogram` function, there are five required user inputs:
+
+1. `data`: The dataset
+
+2. `weight`: The variable encoded to the size or distortion of the region
+
+3. `variable`: The variable corresponding to the palette; can be the same as `weight`
+
+4. `geometry`: The geometry variable of the dataset
+
+5. `palette`: The palette used to determine the colors of the different regions
+
+There are also optional user inputs such as `base`, which controls whether the map contains the base map. To exclude the base map, the user can input `base` = NULL; to include the base map, the user can input any integer, such as `base` = 1. The map is interactive, includes pop-ups and zoom options, and also has the Viridis palette as a default palette for colorblind accessibility.  
+
+For example, if we want to plot a cartogram for the percentage of the population that eats a daily serving of vegetables each day, relative to the population of the region, we would do the following: 
 
 ```{r,fig.width=9,fig.height=9}
 library(ezmaps)
+cartogram(data = states, 
+          weight = "Population", 
+          variable = "Vegetables", 
+          geometry = geometry, 
+          palette = "viridis",
+          base = 1)
 ```
 
 ## hexbin()
 
-NOT DONE
+To plot an interactive map using the `hexbin` function, there are five required user inputs:
+
+1. `data`: The dataset
+
+2. `fill`: Variable encoded to fill of the hexagons
+
+3. `labels`: Variable encoded to labels/abbreviations for the regions represented by the hexagons
+
+4. `palette`: The palette used to determine the colors of the hexagons
+
+5. `geometry`: Variable that gives geometry/multipolygon data
+
+There are also optional user inputs such as `seed`, which gives the number of the corresponding seed map generated by `tesselate()` that the user has determined best represents the original geography. The map is interactive, includes pop-ups and zoom options, and also has the Viridis palette as a default palette for colorblind accessibility.  
+
+For example, if we want to plot a hexbin map for the percentage of the population that eats a daily serving of vegetables each day, we would do the following: 
 
 ```{r,fig.width=9,fig.height=9}
 library(ezmaps)
+hexbin(data = states,
+                fill = "Vegetables",
+                labels = "STUSPS",
+                geometry = geometry,
+                palette = "viridis")
 ```
 
-## generate_hexbin()
+## tessellate()
 
-NOT DONE
+To generate hexagon tessellations fitted to geographical multipolygon data ("seed maps"), there are four required inputs:
+
+1. `data`: The dataset
+
+2. `geometry`: Variable that gives geometry/multipolygon data
+
+3. `n`: Variable that gives number of seed maps to generate
+
+For example, if we want to generate seed maps for the United States, we would do the following: 
 
 ```{r,fig.width=9,fig.height=9}
 library(ezmaps)
+tessellate(data = states, geometry = geometry, n = 6)
 ```
 
 
