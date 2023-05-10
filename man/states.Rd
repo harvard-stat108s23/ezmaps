@@ -21,16 +21,16 @@ vegetables at least once per day (in \%)}
 }
 }
 \source{
-states (Dataset 1): https://cran.r-project.org/web/packages/Lock5Data/index.html
+Lock5Data::USStates: https://cran.r-project.org/web/packages/Lock5Data/index.html
 
-states (Dataset 2): https://github.com/walkerke/tigris/blob/master/R/states.R
+tigris::states: https://github.com/walkerke/tigris/blob/master/R/states.R
 }
 \usage{
 states
 }
 \description{
-This package contains two data sets. The first contains information
-on the residents of US states using a combination of two other datasets
-found in the Lock5Data & tigris packages.
+Contains information on the residents of US states and multipolygon/
+shapefile data for the geometries of US states using a combination
+of two other datasets found in the Lock5Data & tigris packages.
 }
 \keyword{datasets}

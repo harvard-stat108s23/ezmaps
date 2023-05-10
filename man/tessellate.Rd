@@ -4,12 +4,10 @@
 \alias{tessellate}
 \title{Fits hexagon tessellations to geographical multipolygon data as base for hexbin maps}
 \usage{
-tessellate(data, fill, geometry, n = 6, ...)
+tessellate(data, geometry, n = 6, ...)
 }
 \arguments{
 \item{data}{Dataset with geometry/multipolygon data}
-
-\item{fill}{Variable used to fill the hexagons}
 
 \item{geometry}{Variable that gives geometry/multipolygon data}
 
@@ -24,5 +22,5 @@ Possible hexagon tessellations as base for hexbin maps
 Fits hexagon tessellations to geographical multipolygon data as base for hexbin maps
 }
 \examples{
-tessellate(data = states, fill = "Vegetables", geometry = geometry, n = 6)
+tessellate(data = states, geometry = geometry, n = 6)
 }
