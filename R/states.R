@@ -1,8 +1,8 @@
 #' Dataset 2 of 2 used in this package to test and demo functions.
 #'
-#' This package contains two data sets. The first contains information
-#' on the residents of US states using a combination of two other datasets
-#' found in the Lock5Data & tigris packages.
+#' Contains information on the residents of US states and multipolygon/
+#' shapefile data for the geometries of US states using a combination
+#' of two other datasets found in the Lock5Data & tigris packages.
 #'
 #' @format A simple-feature dataframe with 50 rows and 7 variables:
 #' \describe{
@@ -19,6 +19,6 @@
 #'  vegetables at least once per day (in %)}
 #' }
 #'
-#' @source states (Dataset 1): https://cran.r-project.org/web/packages/Lock5Data/index.html
-#' @source states (Dataset 2): https://github.com/walkerke/tigris/blob/master/R/states.R
+#' @source Lock5Data::USStates: https://cran.r-project.org/web/packages/Lock5Data/index.html
+#' @source tigris::states: https://github.com/walkerke/tigris/blob/master/R/states.R
 "states"
