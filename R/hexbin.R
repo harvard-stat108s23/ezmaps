@@ -12,7 +12,11 @@
 #' @export
 #'
 #' @examples
-#' hexbin(data = states, fill = "Vegetables", labels = "STUSPS", geometry = geometry, palette = "viridis")
+#' hexbin(data = states,
+#' fill = "Vegetables",
+#' labels = "STUSPS",
+#' geometry = geometry,
+#' palette = "viridis")
 
 hexbin <- function(data, fill, labels, geometry, palette = "viridis", seed = NULL, base = NULL,...) {
 
