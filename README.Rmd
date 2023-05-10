@@ -49,13 +49,13 @@ If you are creating a point map with circle markers, you are able to use the fol
 If you are creating a point map with icon markers, you are able to use the following inputs: popups, icon_filepath, icon_width, icon_height, zoom_min, zoom_max, set_zoom, map_tile
 
 ```{r example, warning=FALSE}
-pointmap(data = crash_data,
-                  longitude_var = crash_data$lon,
-                  latitude_var = crash_data$lat,
-                  set_longitude = -71.110558,
-                  set_latitude = 42.3736,
-                  popups = crash_data$crash_date,
-                  user_var = crash_data$year)
+# pointmap(data = crash_data,
+#                   longitude_var = crash_data$lon,
+#                   latitude_var = crash_data$lat,
+#                   set_longitude = -71.110558,
+#                   set_latitude = 42.3736,
+#                   popups = crash_data$crash_date,
+#                   user_var = crash_data$year)
 ```
 
 
