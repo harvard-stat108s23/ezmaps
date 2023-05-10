@@ -80,4 +80,18 @@ The `tessellate()` function has the following inputs:
 
 ## Datasets
 
-NOT DONE
+## crash_data
+
+A tibble with 1311 rows and 5 variables. Contains information on local
+pedestrian/cyclist crashes in Cambridge, MA, United States.
+[Source](https://github.com/harvard-stat108s23/materials/blob/main/psets/data/cambridge_cyclist_ped_crash.csv)
+
+## states
+
+A simple-feature dataframe with 50 rows and 7 variables. Contains
+information on the residents of US states and multipolygon/shapefile
+data for the geometries of US states using a combination of the
+[Lock5Data::USStates](https://cran.r-project.org/web/packages/Lock5Data/index.html)
+&
+[tigris::states](https://github.com/walkerke/tigris/blob/master/R/states.R)
+datasets, respectively.
