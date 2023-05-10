@@ -48,16 +48,6 @@ If you are creating a point map with circle markers, you are able to use the fol
 
 If you are creating a point map with icon markers, you are able to use the following inputs: popups, icon_filepath, icon_width, icon_height, zoom_min, zoom_max, set_zoom, map_tile
 
-```{r example, warning=FALSE}
-# pointmap(data = crash_data,
-#                   longitude_var = crash_data$lon,
-#                   latitude_var = crash_data$lat,
-#                   set_longitude = -71.110558,
-#                   set_latitude = 42.3736,
-#                   popups = crash_data$crash_date,
-#                   user_var = crash_data$year)
-```
-
 
 ## choropleth()
 The `choropleth()` function has the following inputs:
@@ -65,11 +55,30 @@ The `choropleth()` function has the following inputs:
 * Required - data, variable, geometry
 * Optional - palette
 
+```{r,fig.width=9,fig.height=9}
+library(ezmaps)
+choropleth(data = states, 
+           variable = "Population", 
+           geometry = geometry, 
+           palette = "viridis")
+```
+
 ## cartogram()
 The `cartogram()` function has the following inputs:
 
 * Required - data, weight, variable, geometry
 * Optional - base
+
+
+```{r,fig.width=9,fig.height=9}
+library(ezmaps)
+cartogram(data = states, 
+          weight = "Population", 
+          variable = "Vegetables", 
+          geometry = geometry, 
+          palette = "viridis",
+          base = 1)
+```
 
 ## hexbin()
 The `hexbin()` function has the following inputs:
