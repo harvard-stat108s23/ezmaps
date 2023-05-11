@@ -10,7 +10,10 @@ hexbin maps.
 
 <!-- badges: start -->
 
-![badge](badge.png)
+<figure>
+<img src="badge.png" width="250" alt="badge" />
+<figcaption aria-hidden="true">badge</figcaption>
+</figure>
 
 <!-- badges: end -->
 
