@@ -3,13 +3,16 @@
 
 # ezmaps
 
-<!-- badges: start -->
-<!-- badges: end -->
-
 The goal of ezmaps is to help beginners conduct exploratory analysis of
 geospatial data via interactive visualizations. This package helps
 create the following: point maps, choropleth maps, cartograms, and
 hexbin maps.
+
+<!-- badges: start -->
+
+![badge](badge.png)
+
+<!-- badges: end -->
 
 ## Installation
 
