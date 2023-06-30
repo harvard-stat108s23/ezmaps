@@ -27,6 +27,9 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", warning=FALSE, message=FA
 We created this package to facilitate the tidying and creating visualizations for exploratory analysis of geo-spatial data in R for beginners. This package helps create the following: point maps, choropleth maps, cartograms, and hexbin maps. 
 
 
+<img src="ezmaps.png" width=30% style="display:block; margin-left: auto; margin-right: auto;">
+
+
 ## Packages
 
 We use several packages across our functions, listed below:

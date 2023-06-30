@@ -1,18 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ezmaps
+# ezmaps <img src='ezmaps.png' align="right" height="138.5" />
 
 The goal of ezmaps is to help beginners conduct exploratory analysis of
 geospatial data via interactive visualizations. This package helps
 create the following: point maps, choropleth maps, cartograms, and
 hexbin maps.
-
-<!-- badges: start -->
-
-<img src="badge.png" width="250" />
-
-<!-- badges: end -->
 
 ## Installation
 
