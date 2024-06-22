@@ -20,7 +20,8 @@ library(ezmaps)
 ```
 
 
-# ezmaps <img src='ezmaps.png' align="right" height="138.5" />
+# ezmaps <a href='https://github.com/harvard-stat108s23/ezmaps'><img src='vignettes/ezmaps.png' align="right" width="200" height="200" /></a>
+
 
 The goal of ezmaps is to help beginners conduct exploratory analysis of geospatial data via interactive visualizations. This package helps create the following: point maps, choropleth maps, cartograms, and hexbin maps. 
 
@@ -28,8 +29,8 @@ The goal of ezmaps is to help beginners conduct exploratory analysis of geospati
 
 You can install the development version of ezmaps from [GitHub](https://github.com/) with:
 
-``` r
-# install.packages("devtools")
+```{r}
+# install_packages("devtools")
 devtools::install_github("harvard-stat108s23/ezmaps")
 ```
 

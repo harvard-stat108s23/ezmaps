@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ezmaps <img src='ezmaps.png' align="right" height="138.5" />
+# ezmaps <a href='https://github.com/harvard-stat108s23/ezmaps'><img src='vignettes/ezmaps.png' align="right" width="200" height="200" /></a>
 
 The goal of ezmaps is to help beginners conduct exploratory analysis of
 geospatial data via interactive visualizations. This package helps
@@ -14,8 +14,148 @@ You can install the development version of ezmaps from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
+# install_packages("devtools")
 devtools::install_github("harvard-stat108s23/ezmaps")
+#> fs           (1.6.2      -> 1.6.4      ) [CRAN]
+#> sass         (0.4.6      -> 0.4.9      ) [CRAN]
+#> cachem       (1.0.8      -> 1.1.0      ) [CRAN]
+#> munsell      (0.5.0      -> 0.5.1      ) [CRAN]
+#> glue         (1.6.2      -> 1.7.0      ) [CRAN]
+#> farver       (2.1.1      -> 2.1.2      ) [CRAN]
+#> cli          (3.6.1      -> 3.6.3      ) [CRAN]
+#> wk           (0.7.3      -> 0.9.1      ) [CRAN]
+#> tinytex      (0.45       -> 0.51       ) [CRAN]
+#> fontawesome  (0.5.1      -> 0.5.2      ) [CRAN]
+#> bslib        (0.5.0      -> 0.7.0      ) [CRAN]
+#> highr        (0.10       -> 0.11       ) [CRAN]
+#> evaluate     (0.21       -> 0.24.0     ) [CRAN]
+#> e1071        (1.7-13     -> 1.7-14     ) [CRAN]
+#> units        (0.8-2      -> 0.8-5      ) [CRAN]
+#> s2           (1.1.4      -> 1.1.6      ) [CRAN]
+#> DBI          (1.1.3      -> 1.2.3      ) [CRAN]
+#> classInt     (0.4-9      -> 0.4-10     ) [CRAN]
+#> terra        (1.7-39     -> 1.7-78     ) [CRAN]
+#> xfun         (0.39       -> 0.45       ) [CRAN]
+#> sp           (2.0-0      -> 2.1-4      ) [CRAN]
+#> leaflet.p... (1.9.0      -> 2.0.0      ) [CRAN]
+#> crosstalk    (1.2.0      -> 1.2.1      ) [CRAN]
+#> yaml         (2.3.7      -> 2.3.8      ) [CRAN]
+#> rmarkdown    (2.22       -> 2.27       ) [CRAN]
+#> knitr        (1.43       -> 1.47       ) [CRAN]
+#> jsonlite     (1.8.5      -> 1.8.8      ) [CRAN]
+#> rlang        (1.1.1      -> 1.1.4      ) [CRAN]
+#> fastmap      (1.1.1      -> 1.2.0      ) [CRAN]
+#> digest       (0.6.31     -> 0.6.35     ) [CRAN]
+#> sfheaders    (0.4.3      -> 0.4.4      ) [CRAN]
+#> geometries   (0.2.3      -> 0.2.4      ) [CRAN]
+#> Rcpp         (1.0.10     -> 1.0.12     ) [CRAN]
+#> sf           (1.0-13     -> 1.0-16     ) [CRAN]
+#> raster       (3.6-20     -> 3.6-26     ) [CRAN]
+#> leaflet      (2.1.2      -> 2.2.2      ) [CRAN]
+#> htmlwidgets  (1.6.2      -> 1.6.4      ) [CRAN]
+#> htmltools    (0.5.5      -> 0.5.8.1    ) [CRAN]
+#> vctrs        (0.6.2      -> 0.6.5      ) [CRAN]
+#> purrr        (1.0.1      -> 1.0.2      ) [CRAN]
+#> XML          (3.99-0.14  -> 3.99-0.16.1) [CRAN]
+#> stars        (0.6-1      -> 0.6-5      ) [CRAN]
+#> lwgeom       (0.2-13     -> 0.2-14     ) [CRAN]
+#> utf8         (1.2.3      -> 1.2.4      ) [CRAN]
+#> fansi        (1.0.4      -> 1.0.6      ) [CRAN]
+#> tidyselect   (1.2.0      -> 1.2.1      ) [CRAN]
+#> askpass      (1.1        -> 1.2.0      ) [CRAN]
+#> openssl      (2.0.6      -> 2.2.0      ) [CRAN]
+#> curl         (5.0.1      -> 5.2.1      ) [CRAN]
+#> stringi      (1.7.12     -> 1.8.4      ) [CRAN]
+#> crayon       (1.5.2      -> 1.5.3      ) [CRAN]
+#> leafem       (0.2.0      -> 0.2.3      ) [CRAN]
+#> dplyr        (1.1.2      -> 1.1.4      ) [CRAN]
+#> uuid         (1.1-0      -> 1.2-0      ) [CRAN]
+#> httr         (1.4.6      -> 1.4.7      ) [CRAN]
+#> RcppArmad... (0.12.6.6.1 -> 0.12.8.4.0 ) [CRAN]
+#> packcircles  (0.3.5      -> 0.3.6      ) [CRAN]
+#> tmap         (3.3-3      -> 3.3-4      ) [CRAN]
+#> tigris       (2.0.3      -> 2.1        ) [CRAN]
+#> readr        (2.1.4      -> 2.1.5      ) [CRAN]
+#> geogrid      (0.1.1      -> 0.1.2      ) [CRAN]
+#> 
+#>   There is a binary version available but the source version is later:
+#>     binary source needs_compilation
+#> cli  3.6.2  3.6.3              TRUE
+#> 
+#>   Binaries will be installed
+#> package 'fs' successfully unpacked and MD5 sums checked
+#> package 'sass' successfully unpacked and MD5 sums checked
+#> package 'cachem' successfully unpacked and MD5 sums checked
+#> package 'munsell' successfully unpacked and MD5 sums checked
+#> package 'glue' successfully unpacked and MD5 sums checked
+#> package 'farver' successfully unpacked and MD5 sums checked
+#> package 'cli' successfully unpacked and MD5 sums checked
+#> package 'wk' successfully unpacked and MD5 sums checked
+#> package 'tinytex' successfully unpacked and MD5 sums checked
+#> package 'fontawesome' successfully unpacked and MD5 sums checked
+#> package 'bslib' successfully unpacked and MD5 sums checked
+#> package 'highr' successfully unpacked and MD5 sums checked
+#> package 'evaluate' successfully unpacked and MD5 sums checked
+#> package 'e1071' successfully unpacked and MD5 sums checked
+#> package 'units' successfully unpacked and MD5 sums checked
+#> package 's2' successfully unpacked and MD5 sums checked
+#> package 'DBI' successfully unpacked and MD5 sums checked
+#> package 'classInt' successfully unpacked and MD5 sums checked
+#> package 'terra' successfully unpacked and MD5 sums checked
+#> package 'xfun' successfully unpacked and MD5 sums checked
+#> package 'sp' successfully unpacked and MD5 sums checked
+#> package 'leaflet.providers' successfully unpacked and MD5 sums checked
+#> package 'crosstalk' successfully unpacked and MD5 sums checked
+#> package 'yaml' successfully unpacked and MD5 sums checked
+#> package 'rmarkdown' successfully unpacked and MD5 sums checked
+#> package 'knitr' successfully unpacked and MD5 sums checked
+#> package 'jsonlite' successfully unpacked and MD5 sums checked
+#> package 'rlang' successfully unpacked and MD5 sums checked
+#> package 'fastmap' successfully unpacked and MD5 sums checked
+#> package 'digest' successfully unpacked and MD5 sums checked
+#> package 'sfheaders' successfully unpacked and MD5 sums checked
+#> package 'geometries' successfully unpacked and MD5 sums checked
+#> package 'Rcpp' successfully unpacked and MD5 sums checked
+#> package 'sf' successfully unpacked and MD5 sums checked
+#> package 'raster' successfully unpacked and MD5 sums checked
+#> package 'leaflet' successfully unpacked and MD5 sums checked
+#> package 'htmlwidgets' successfully unpacked and MD5 sums checked
+#> package 'htmltools' successfully unpacked and MD5 sums checked
+#> package 'vctrs' successfully unpacked and MD5 sums checked
+#> package 'purrr' successfully unpacked and MD5 sums checked
+#> package 'XML' successfully unpacked and MD5 sums checked
+#> package 'stars' successfully unpacked and MD5 sums checked
+#> package 'lwgeom' successfully unpacked and MD5 sums checked
+#> package 'utf8' successfully unpacked and MD5 sums checked
+#> package 'fansi' successfully unpacked and MD5 sums checked
+#> package 'tidyselect' successfully unpacked and MD5 sums checked
+#> package 'askpass' successfully unpacked and MD5 sums checked
+#> package 'openssl' successfully unpacked and MD5 sums checked
+#> package 'curl' successfully unpacked and MD5 sums checked
+#> package 'stringi' successfully unpacked and MD5 sums checked
+#> package 'crayon' successfully unpacked and MD5 sums checked
+#> package 'leafem' successfully unpacked and MD5 sums checked
+#> package 'dplyr' successfully unpacked and MD5 sums checked
+#> package 'uuid' successfully unpacked and MD5 sums checked
+#> package 'httr' successfully unpacked and MD5 sums checked
+#> package 'RcppArmadillo' successfully unpacked and MD5 sums checked
+#> package 'packcircles' successfully unpacked and MD5 sums checked
+#> package 'tmap' successfully unpacked and MD5 sums checked
+#> package 'tigris' successfully unpacked and MD5 sums checked
+#> package 'readr' successfully unpacked and MD5 sums checked
+#> package 'geogrid' successfully unpacked and MD5 sums checked
+#> 
+#> The downloaded binary packages are in
+#>  C:\Users\aceme\AppData\Local\Temp\RtmpM7qxyh\downloaded_packages
+#> ── R CMD build ─────────────────────────────────────────────────────────────────
+#>          checking for file 'C:\Users\aceme\AppData\Local\Temp\RtmpM7qxyh\remotes53982b6b4794\harvard-stat108s23-ezmaps-e9f1746/DESCRIPTION' ...  ✔  checking for file 'C:\Users\aceme\AppData\Local\Temp\RtmpM7qxyh\remotes53982b6b4794\harvard-stat108s23-ezmaps-e9f1746/DESCRIPTION' (1.4s)
+#>       ─  preparing 'ezmaps': (498ms)
+#>    checking DESCRIPTION meta-information ...     checking DESCRIPTION meta-information ...   ✔  checking DESCRIPTION meta-information
+#>       ─  checking for LF line-endings in source and make files and shell scripts
+#>       ─  checking for empty or unneeded directories
+#>       ─  building 'ezmaps_0.0.0.9000.tar.gz'
+#>      
+#> 
 ```
 
 ## Functions and examples
